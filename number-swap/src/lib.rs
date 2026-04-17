@@ -1,3 +1,5 @@
+use std::ptr::null;
+
 pub fn swap_numbers_unsafe(num1: &mut i32, num2: &mut i32) {
     // we need to swap these two wihout using the third pointer
     // basically just use the raw pointers
@@ -23,10 +25,21 @@ pub fn swap_numbers_unsafe(num1: &mut i32, num2: &mut i32) {
     }
 }
 
+//checking if a number is null
+
+pub fn is_null(num: *const i32) -> bool {
+    // num == null()
+    // (num as usize) == 0
+    num.is_null()
+}
+
 #[cfg(test)]
 mod tests {
+    use std::ptr;
+
     use super::*;
 
+    // swap tests
     #[test]
     fn xor_swap() {
         let mut x = 5;
@@ -60,5 +73,27 @@ mod tests {
         swap_numbers_unsafe(ref1, ref2);
         // x should STILL be 42.
         assert_eq!(x, 42, "Value should remain unchanged ");
+    }
+
+    // null tests
+    #[test]
+    fn actual_null_is_null() {
+        let p: *const i32 = ptr::null();
+        assert!(is_null(p));
+    }
+
+    #[test]
+    fn valid_pointer_is_not_null() {
+        let x = 42;
+        let p: *const i32 = &x;
+        assert!(!is_null(p));
+    }
+
+    #[test]
+    fn dangling_pointer_is_not_null() {
+        //pointer that points to... something bad
+        let p: *const i32 = 0x1 as *const i32;
+        // It's not null, even though it's invalid!
+        assert!(!is_null(p));
     }
 }
