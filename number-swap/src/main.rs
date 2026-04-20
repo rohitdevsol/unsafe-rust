@@ -47,7 +47,7 @@ fn main() {
     let initialized_array = unsafe {
         // std::mem::transmute is the nuclear option.
         // Better approach: use pointer casting and std::ptr::read
-        let array_ptr = &buffer as *const _ as *const [i32; 5];
+        let array_ptr = &buffer as *const _;
         ptr::read(array_ptr)
     };
 

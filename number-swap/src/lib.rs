@@ -1,5 +1,5 @@
 use std::ptr::null;
-
+mod static_vec;
 pub fn swap_numbers_unsafe(num1: &mut i32, num2: &mut i32) {
     // we need to swap these two wihout using the third pointer
     // basically just use the raw pointers
