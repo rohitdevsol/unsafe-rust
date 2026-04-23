@@ -1,5 +1,5 @@
 [workspace]
 resolver="3"
-members = ["number-swap"]
+members = ["number-swap", "static_vec"]
 
 
